@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-const createSimpleScene = () => {
+const main = () => {
     // 创建3D场景对象
     const scene = new THREE.Scene();
 
@@ -25,4 +25,4 @@ const createSimpleScene = () => {
 };
 
 
-createSimpleScene();
+main();
