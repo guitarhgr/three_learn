@@ -5,12 +5,17 @@ const main = () => {
     // =============== 创建3D场景对象
     const scene = new THREE.Scene();
 
+
+
+
     // =============== 创建几何体
     const geometry = new THREE.BoxGeometry(50, 50, 50);
 
     // =============== 创建材质对象
-    const material = new THREE.MeshBasicMaterial({
-        color: 0xff00ff,
+    // 基础网格材质MeshBasicMaterial不受光照影响
+    // 漫反射网格材质；MeshLambertMaterial
+    const material = new THREE.MeshLambertMaterial({
+        color: 0x00ffff,
     });
 
     // =============== 创建网格模型
@@ -22,10 +27,8 @@ const main = () => {
     // 添加网格模型到场景中
     scene.add(mesh);
 
-    // =============== 创建辅助观察的坐标系
-    const axesHelper = new THREE.AxesHelper(100);
-    scene.add(axesHelper);
 
+    // =============== 创建透视相机
     // 用来设置渲染后，输出的画布宽高度。
     const fov = 30; // 视场角度
     const width = 800;
@@ -42,6 +45,20 @@ const main = () => {
 
     // 相机观察目标指向Three.js坐标系原点
     perspectiveCamera.lookAt(0, 0, 0);
+
+
+    // =============== 创建辅助观察的坐标系
+    const axesHelper = new THREE.AxesHelper(100);
+    scene.add(axesHelper);
+
+
+    // =============== 创建点光源
+    const pointLight = new THREE.PointLight(0xffffff, 1.0);
+    pointLight.decay = 0.0; // 光源光照强度不随距离改变衰减
+    pointLight.position.set(400, 0, 0); // 点光源放在x轴上
+    pointLight.position.set(400, 200, 300); // 偏移光源位置，观察渲染效果变化
+
+    scene.add(pointLight); // 点光源添加到场景中
 
     // =============== 创建渲染器对象
     const renderer = new THREE.WebGLRenderer();
